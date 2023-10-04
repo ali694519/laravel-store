@@ -36,6 +36,10 @@ class Order extends Model
         ]);
     }
 
+    public function items() {
+        return $this->hasMany(OrderItem::class,'order_id');
+    }
+
     public function user() {
         return $this->belongsTo(User::class)
         ->withDefault([
@@ -57,6 +61,10 @@ class Order extends Model
     public function shippingAddress() {
         return $this->hasOne(OrderAddress::class,'order_id','id')
         ->where('type','shipping');
+    }
+
+    public function delivery() {
+        return $this->hasOne(Delivery::class);
     }
 
 

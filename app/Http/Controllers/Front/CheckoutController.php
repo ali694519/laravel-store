@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\front;
 
 use App\Events\OrderCreated;
+use App\Exceptions\InvalidOrderException;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
@@ -17,7 +18,8 @@ class CheckoutController extends Controller
 {
     public function create(CartRepository $cart) {
         if($cart->get()->count() == 0) {
-            return redirect()->route('home');
+            // return redirect()->route('home');
+            throw new InvalidOrderException('Cart is empty');
         }
 
         return view('front.checkout',[
@@ -71,6 +73,6 @@ class CheckoutController extends Controller
             DB::rollBack();
             throw $e;
         }
-        return redirect()->route('home');
+            return redirect()->route('orders.payments.create', $order->id);
     }
 }

@@ -4,17 +4,19 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Concerns\HasRoles;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Fortify\TwoFactorAuthenticatable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 
 {
-    use HasApiTokens, HasFactory, Notifiable,TwoFactorAuthenticatable;
+    use HasApiTokens, HasFactory, Notifiable,TwoFactorAuthenticatable,HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -25,7 +27,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        'store_id'
+        'store_id',
+        'provider',
+        'provider_id',
+        'provider_token',
     ];
 
     /**
@@ -55,5 +60,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function profile() {
         return $this->hasOne(profile::class,'user_id','id')
             ->withDefault();
+    }
+
+      public function setProviderTokenAttribute($value)
+    {
+        $this->attributes['provider_token'] = Crypt::encryptString($value);
+    }
+
+    public function getProviderTokenAttribute($value)
+    {
+        return Crypt::decryptString($value);
     }
 }

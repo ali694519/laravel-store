@@ -2,8 +2,11 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Database\QueryException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
@@ -23,8 +26,35 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->reportable(function (QueryException $e) {
+
+            if ($e->getCode() === '23000') {
+                Log::channel('sql')->warning($e->getMessage());
+                return false;
+            }
+
+            return true;
+        });
+
+        $this->renderable(function (QueryException $e, Request $request) {
+            if ($e->getCode() == 23000) {
+                $message = 'Foreign key constraint failed';
+            } else {
+                $message = $e->getMessage();
+            }
+
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'message' => $message,
+                ], 400);
+            }
+
+            return redirect()
+                ->back()
+                ->withInput()->withErrors([
+                    'message' => $e->getMessage(),
+                ])
+                ->with('danger', $message);
         });
     }
 }

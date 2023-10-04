@@ -8,7 +8,6 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-
 class ProductController extends Controller
 {
     /**
@@ -16,7 +15,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-          $request = request();
+        $this->authorize('view-any', Product::class);
+
+        $request = request();
         //SELECT * FROM products
         //SELECT * FROM categories WHERE id IN (*)
         //SELECT * FROM stores WHERE id IN (*)
@@ -31,6 +32,8 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Product::class);
+
         $products = Product::all();
         $product = new Product();
         return view('dashboard.products.create',compact('product','product'));
@@ -41,6 +44,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Product::class);
 
         //Request merge
         $request->merge([
@@ -48,7 +52,7 @@ class ProductController extends Controller
         ]);
         $data = $request->except('image','tags');
 
-       
+
         $data['image'] = $this->UploadImage($request);
 
         $product = Product::create($data);
@@ -72,7 +76,8 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        //
+          $product = Product::findOrFail($id);
+        $this->authorize('view', $product);
     }
 
     /**
@@ -92,6 +97,8 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        $this->authorize('update', $product);
+
         $product->update($request->except('tags'));
 
         $tags = explode(',',$request->post('tags'));
@@ -123,7 +130,8 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+         $product = Product::findOrFail($id);
+        $this->authorize('delete', $product);
     }
 
     protected function UploadImage(Request $request) {
@@ -135,4 +143,6 @@ class ProductController extends Controller
         $data['image'] = $path;
         return $path;
     }
+
+
 }

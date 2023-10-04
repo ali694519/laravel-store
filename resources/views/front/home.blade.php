@@ -26,6 +26,8 @@
   <!-- Start Hero Area -->
   <section class="hero-area">
     <div class="container">
+      <x-alert type="danger" message="danger" />
+
       <div class="row">
         <div class="col-lg-8 col-12 custom-padding-right">
           <div class="slider-head">
@@ -717,8 +719,8 @@
         const now = new Date().getTime();
         let diff = finaleDate - now;
         if (diff < 0) {
-        //   document.querySelector('.alert').style.display = 'block';
-        //   document.querySelector('.container').style.display = 'none';
+          //   document.querySelector('.alert').style.display = 'block';
+          //   document.querySelector('.container').style.display = 'none';
         }
 
         let days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -739,7 +741,7 @@
 
       }
       timer();
-    //   setInterval(timer, 1000);
+      //   setInterval(timer, 1000);
     </script>
   @endpush
 

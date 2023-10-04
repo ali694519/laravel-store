@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\CategoryRequest;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,6 +17,9 @@ class CategoriesController extends Controller
      */
     public function index()
     {
+        if(Gate::denies('categories.view')) {
+            abort(403);
+        }
         $request = request();
 
         //SELECT a.*,b.name as parent_name FROM categories as a
@@ -39,6 +43,9 @@ class CategoriesController extends Controller
      */
     public function create()
     {
+         if(!Gate::allows('categories.crate')) {
+            abort(403);
+        }
         $parents = Category::all();
         $category = new Category();
         return view('dashboard.categories.create',compact('parents','category'));
@@ -49,7 +56,7 @@ class CategoriesController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-
+       Gate::authorize('categories.create');
        //Request merge
         $request->merge([
             'slug'=>Str::slug($request->post('name'))
@@ -69,6 +76,10 @@ class CategoriesController extends Controller
      */
     public function show(Category $category)
     {
+         if(Gate::denies('categories.view')) {
+            abort(403);
+        }
+
         return view('dashboard.categories.show',[
             'category'=>$category
         ]);
@@ -79,6 +90,8 @@ class CategoriesController extends Controller
      */
     public function edit(string $id)
     {
+        // Gate::authorize('categories.update');
+
         $category = Category::findOrFail($id);
         $parents = Category::where('id','<>',$id)
         ->where(function($query) use($id) {
@@ -94,7 +107,7 @@ class CategoriesController extends Controller
      */
     public function update(CategoryRequest $request, string $id)
     {
-
+        Gate::authorize('categories.update');
         $category = Category::findOrFail($id);
         $old_image = $category->image;
         $data = $request->except('image');
@@ -118,6 +131,7 @@ class CategoriesController extends Controller
      */
     public function destroy(Category $category)
     {
+        Gate::authorize('categories.delete');
         $category->delete();
 
         // if($category->image) {

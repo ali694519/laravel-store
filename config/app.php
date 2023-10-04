@@ -175,6 +175,7 @@ return [
         App\Providers\TelescopeServiceProvider::class,
         App\Providers\CartServiceProvider::class,
         App\providers\FortifyServiceProvider::class,
+        
 
 
 

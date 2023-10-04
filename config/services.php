@@ -33,5 +33,17 @@ return [
      'currency_converter' => [
         'api_key' => env('CURRENCY_CONVERTER_API_KEY'),
     ],
+        'stripe' => [
+        'publishable_key' => env('STRIPE_PUBLISHABLE_KEY'),
+        'secret_key' => env('STRIPE_SECRET_KEY'),
+    ],
+
+    'google'=>[
+        'client_id'=>env('GOOGLE_CLIENT_ID'),
+        'client_secret'=>env('GOOGLE_CLIENT_SECRET'),
+        'redirect'=>env('APP_URL') . '/auth/google/callback',
+    ]
+
+
 
 ];

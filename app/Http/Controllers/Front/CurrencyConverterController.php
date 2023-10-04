@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\CurrencyConverter;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 
@@ -25,6 +26,8 @@ class CurrencyConverterController extends Controller
         if (!$rate) {
             $converter = app('currency.converter');
             $rate = $converter->convert($baseCurrencyCode, $currencyCode);
+            // $converter = new CurrencyConverter(config('services.currency_converter.api_key'));
+            // $rate = $converter->convert($baseCurrencyCode,$currencyCode);
 
             Cache::put($cacheKey, $rate, now()->addMinutes(60));
         }
