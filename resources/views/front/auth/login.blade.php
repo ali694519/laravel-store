@@ -32,7 +32,7 @@
               </div>
 
 
-              
+
               <div class="alt-option">
                 <span>Or</span>
               </div>

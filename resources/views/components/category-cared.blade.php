@@ -10,7 +10,6 @@
   </ul>
   <div class="image">
     <img src="{{ asset('storage/' . $category->image) }}" alt="#">
-
   </div>
 </div>
 <!-- End Single Category -->

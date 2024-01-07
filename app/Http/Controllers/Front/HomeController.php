@@ -18,4 +18,13 @@ class HomeController extends Controller
         $categories = Category::get();
         return view('front.home',compact('products','categories'));
     }
+
+    public function about()
+    {
+        return view('front.about.about');
+    }
+    public function contact()
+    {
+        return view('front.contact.contact');
+    }
 }

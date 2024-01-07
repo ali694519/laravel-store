@@ -4,18 +4,18 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
-  <title>{{ $title }}</title>
+  <title>About Us -Page.</title>
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/favicon.svg') }}" />
+  <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg" />
 
   <!-- ========================= CSS here ========================= -->
-  <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
-  <link rel="stylesheet" href="{{ asset('assets/css/LineIcons.3.0.css') }}" />
-  <link rel="stylesheet" href="{{ asset('assets/css/tiny-slider.css') }}" />
-  <link rel="stylesheet" href="{{ asset('assets/css/glightbox.min.css') }}" />
-  <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}" />
-  @stack('styles')
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="assets/css/LineIcons.3.0.css" />
+  <link rel="stylesheet" href="assets/css/tiny-slider.css" />
+  <link rel="stylesheet" href="assets/css/glightbox.min.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+
 </head>
 
 <body>
@@ -49,17 +49,14 @@
               <ul class="menu-top-link">
                 <li>
                   <div class="select-position">
-                    <form action="{{ route('currency.store') }}" method="post">
-                      @csrf
-                      <select name="currency_code" onchange="this.form.submit()">
-                        <option value="USD" @selected('USD' == session('currency_code'))>$ USD</option>
-                        <option value="EUR" @selected('EUR' == session('currency_code'))>€ EURO</option>
-                        <option value="ILS" @selected('ILS' == session('currency_code'))>$ ILS</option>
-                        <option value="JOD" @selected('JOD' == session('currency_code'))>₹ JOD</option>
-                        <option value="SAR" @selected('SAR' == session('currency_code'))>¥ SAR</option>
-                        <option value="QAR" @selected('QAR' == session('currency_code'))>৳ QAR</option>
-                      </select>
-                    </form>
+                    <select id="select4">
+                      <option value="0" selected>$ USD</option>
+                      <option value="1">€ EURO</option>
+                      <option value="2">$ CAD</option>
+                      <option value="3">₹ INR</option>
+                      <option value="4">¥ CNY</option>
+                      <option value="5">৳ BDT</option>
+                    </select>
                   </div>
                 </li>
                 <li>
@@ -81,42 +78,26 @@
           <div class="col-lg-4 col-md-4 col-12">
             <div class="top-middle">
               <ul class="useful-links">
-                <li><a href="{{ route('home') }}">{{ trans('Home') }}</a></li>
-                <li><a href="{{ route('about') }}">@lang('About Us')</a></li>
-                <li><a href="{{ route('contact') }}">{{ __('Contact Us') }}</a></li>
+                <li><a href="{{ route('home') }}">Home</a></li>
+                <li><a href="{{ route('about') }}">About Us</a></li>
+                <li><a href="{{ route('contact') }}">Contact Us</a></li>
               </ul>
             </div>
           </div>
           <div class="col-lg-4 col-md-4 col-12">
             <div class="top-end">
-              @auth
-                <div class="user">
-                  <i class="lni lni-user"></i>
-                  {{ Auth::user()->name }}
-                </div>
-                <ul class="user-login">
-                  <li>
-                    <a href="{{ route('logout') }}"
-                      onclick="event.preventDefault(); document.getElementById('logout').submit()">Sign Out</a>
-                  </li>
-                  <form action="{{ route('logout') }}" id="logout" method="post" style="display:none">
-                    @csrf
-                  </form>
-                </ul>
-              @else
-                <div class="user">
-                  <i class="lni lni-user"></i>
-                  {{ __('Hello') }}
-                </div>
-                <ul class="user-login">
-                  <li>
-                    <a href="{{ route('login') }}">{{ Lang::get('Sign In') }}</a>
-                  </li>
-                  <li>
-                    <a href="{{ route('register') }}">{{ __('Register') }}</a>
-                  </li>
-                </ul>
-              @endauth
+              <div class="user">
+                <i class="lni lni-user"></i>
+                Hello
+              </div>
+              <ul class="user-login">
+                <li>
+                  <a href="login.html">Sign In</a>
+                </li>
+                <li>
+                  <a href="register.html">Register</a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -130,7 +111,7 @@
           <div class="col-lg-3 col-md-3 col-7">
             <!-- Start Header Logo -->
             <a class="navbar-brand" href="index.html">
-              <img src="{{ asset('assets/images/logo/logo.svg') }}" alt="Logo">
+              <img src="assets/images/logo/logo.svg" alt="Logo">
             </a>
             <!-- End Header Logo -->
           </div>
@@ -177,7 +158,57 @@
                     <span class="total-items">0</span>
                   </a>
                 </div>
-                <x-cart-menu />
+                <div class="cart-items">
+                  <a href="javascript:void(0)" class="main-btn">
+                    <i class="lni lni-cart"></i>
+                    <span class="total-items">2</span>
+                  </a>
+                  <!-- Shopping Item -->
+                  <div class="shopping-item">
+                    <div class="dropdown-cart-header">
+                      <span>2 Items</span>
+                      <a href="cart.html">View Cart</a>
+                    </div>
+                    <ul class="shopping-list">
+                      <li>
+                        <a href="javascript:void(0)" class="remove" title="Remove this item"><i
+                            class="lni lni-close"></i></a>
+                        <div class="cart-img-head">
+                          <a class="cart-img" href="product-details.html"><img
+                              src="assets/images/header/cart-items/item1.jpg" alt="#"></a>
+                        </div>
+
+                        <div class="content">
+                          <h4><a href="product-details.html">
+                              Apple Watch Series 6</a></h4>
+                          <p class="quantity">1x - <span class="amount">$99.00</span></p>
+                        </div>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)" class="remove" title="Remove this item"><i
+                            class="lni lni-close"></i></a>
+                        <div class="cart-img-head">
+                          <a class="cart-img" href="product-details.html"><img
+                              src="assets/images/header/cart-items/item2.jpg" alt="#"></a>
+                        </div>
+                        <div class="content">
+                          <h4><a href="product-details.html">Wi-Fi Smart Camera</a></h4>
+                          <p class="quantity">1x - <span class="amount">$35.00</span></p>
+                        </div>
+                      </li>
+                    </ul>
+                    <div class="bottom">
+                      <div class="total">
+                        <span>Total</span>
+                        <span class="total-amount">$134.00</span>
+                      </div>
+                      <div class="button">
+                        <a href="checkout.html" class="btn animate">Checkout</a>
+                      </div>
+                    </div>
+                  </div>
+                  <!--/ End Shopping Item -->
+                </div>
               </div>
             </div>
           </div>
@@ -241,9 +272,9 @@
                       data-bs-target="#submenu-1-2" aria-controls="navbarSupportedContent" aria-expanded="false"
                       aria-label="Toggle navigation">Pages</a>
                     <ul class="sub-menu collapse" id="submenu-1-2">
-                      <li class="nav-item"><a href="{{ route('about') }}">About Us</a></li>
+                      <li class="nav-item active"><a href="{{ route('about') }}">About Us</a></li>
                       <li class="nav-item"><a href="faq.html">Faq</a></li>
-                      <li class="nav-item active"><a href="login.html">Login</a></li>
+                      <li class="nav-item"><a href="login.html">Login</a></li>
                       <li class="nav-item"><a href="register.html">Register</a></li>
                       <li class="nav-item"><a href="mail-success.html">Mail Success</a></li>
                       <li class="nav-item"><a href="404.html">404 Error</a></li>
@@ -310,10 +341,164 @@
   <!-- End Header Area -->
 
   <!-- Start Breadcrumbs -->
-  {{ $breadcrumb ?? '' }}
+  <div class="breadcrumbs">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 col-md-6 col-12">
+          <div class="breadcrumbs-content">
+            <h1 class="page-title">About Us</h1>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+          <ul class="breadcrumb-nav">
+            <li><a href="{{ route('home') }}"><i class="lni lni-home"></i> Home</a></li>
+            <li>About Us</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- End Breadcrumbs -->
 
-  {{ $slot }}
+  <!-- Start About Area -->
+  <section class="about-us section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 col-md-12 col-12">
+          <div class="content-left">
+            <img src="https://via.placeholder.com/540x420" alt="#">
+            <a href="https://www.youtube.com/watch?v=r44RKWyfcFw&fbclid=IwAR21beSJORalzmzokxDRcGfkZA1AtRTE__l5N4r09HcGS5Y6vOluyouM9EM"
+              class="glightbox video"><i class="lni lni-play"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-12 col-12">
+          <!-- content-1 start -->
+          <div class="content-right">
+            <h2>ShopGrids - Your Trusted & Reliable Partner.</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam id purus at risus
+              pellentesque faucibus a quis eros. In eu fermentum leo. Integer ut eros lacus. Proin ut
+              accumsan leo. Morbi vitae est eget dolor consequat aliquam eget quis dolor. Mauris rutrum
+              fermentum erat, at euismod lorem pharetra nec. Duis erat lectus, ultrices euismod sagittis.
+            </p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius mod tempor incididunt
+              ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+              laboris nisi aliquip ex ea commodo consequat.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End About Area -->
+
+  <!-- Start Team Area -->
+  <section class="team section">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="section-title">
+            <h2 class="wow fadeInUp" data-wow-delay=".4s">Our Core Team</h2>
+            <p class="wow fadeInUp" data-wow-delay=".6s">There are many variations of passages of Lorem
+              Ipsum available, but the majority have suffered alteration in some form.</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-md-6 col-12">
+          <!-- Start Single Team -->
+          <div class="single-team">
+            <div class="image">
+              <img src="https://via.placeholder.com/300x300" alt="#">
+            </div>
+            <div class="content">
+              <div class="info">
+                <h3>Grace Wright</h3>
+                <h5>Founder, CEO</h5>
+                <ul class="social">
+                  <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a>
+                  </li>
+                  <li><a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a>
+                  </li>
+                  <li><a href="javascript:void(0)"><i class="lni lni-skype"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- End Single Team -->
+        </div>
+        <div class="col-lg-3 col-md-6 col-12">
+          <!-- Start Single Team -->
+          <div class="single-team">
+            <div class="image">
+              <img src="https://via.placeholder.com/300x300" alt="#">
+            </div>
+            <div class="content">
+              <div class="info">
+                <h3>Taylor Jackson</h3>
+                <h5>Financial Director</h5>
+                <ul class="social">
+                  <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a>
+                  </li>
+                  <li><a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a>
+                  </li>
+                  <li><a href="javascript:void(0)"><i class="lni lni-skype"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- End Single Team -->
+        </div>
+        <div class="col-lg-3 col-md-6 col-12">
+          <!-- Start Single Team -->
+          <div class="single-team">
+            <div class="image">
+              <img src="https://via.placeholder.com/300x300" alt="#">
+            </div>
+            <div class="content">
+              <div class="info">
+                <h3>Quinton Cross</h3>
+                <h5>Marketing Director</h5>
+                <ul class="social">
+                  <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a>
+                  </li>
+                  <li><a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a>
+                  </li>
+                  <li><a href="javascript:void(0)"><i class="lni lni-skype"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- End Single Team -->
+        </div>
+        <div class="col-lg-3 col-md-6 col-12">
+          <!-- Start Single Team -->
+          <div class="single-team">
+            <div class="image">
+              <img src="https://via.placeholder.com/300x300" alt="#">
+            </div>
+            <div class="content">
+              <div class="info">
+                <h3>Liana Mullen</h3>
+                <h5>Lead Designer</h5>
+                <ul class="social">
+                  <li><a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a>
+                  </li>
+                  <li><a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a>
+                  </li>
+                  <li><a href="javascript:void(0)"><i class="lni lni-skype"></i></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- End Single Team -->
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Team Area -->
 
   <!-- Start Footer Area -->
   <footer class="footer">
@@ -325,7 +510,7 @@
             <div class="col-lg-3 col-md-4 col-12">
               <div class="footer-logo">
                 <a href="index.html">
-                  <img src="{{ asset('assets/images/logo/white-logo.svg') }}" alt="#">
+                  <img src="assets/images/logo/white-logo.svg" alt="#">
                 </a>
               </div>
             </div>
@@ -434,7 +619,7 @@
             <div class="col-lg-4 col-12">
               <div class="payment-gateway">
                 <span>We Accept:</span>
-                <img src="{{ asset('assets/images/footer/credit-cards-footer.png') }}" alt="#">
+                <img src="assets/images/footer/credit-cards-footer.png" alt="#">
               </div>
             </div>
             <div class="col-lg-4 col-12">
@@ -468,13 +653,20 @@
   </a>
 
   <!-- ========================= JS here ========================= -->
-  <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('assets/js/tiny-slider.js') }}"></script>
-  <script src="{{ asset('assets/js/glightbox.min.js') }}"></script>
-  <script src="{{ asset('assets/js/main.js') }}"></script>
-
-  @stack('scripts')
-
+  <script src="assets/js/bootstrap.min.js"></script>
+  <script src="assets/js/tiny-slider.js"></script>
+  <script src="assets/js/glightbox.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script type="text/javascript">
+    //========= glightbox
+    GLightbox({
+      'href': 'https://www.youtube.com/watch?v=r44RKWyfcFw&fbclid=IwAR21beSJORalzmzokxDRcGfkZA1AtRTE__l5N4r09HcGS5Y6vOluyouM9EM',
+      'type': 'video',
+      'source': 'youtube', //vimeo, youtube or local
+      'width': 900,
+      'autoplayVideos': true,
+    });
+  </script>
 </body>
 
 </html>

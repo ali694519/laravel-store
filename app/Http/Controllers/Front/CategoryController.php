@@ -14,7 +14,6 @@ class CategoryController extends Controller
 
 
     public function show(Category $product) {
-
         return view('front.products.show',compact('product'));
      }
 }
