@@ -129,7 +129,7 @@
         <div class="row align-items-center">
           <div class="col-lg-3 col-md-3 col-7">
             <!-- Start Header Logo -->
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="{{ route('home') }}">
               <img src="{{ asset('assets/images/logo/logo.svg') }}" alt="Logo">
             </a>
             <!-- End Header Logo -->
@@ -242,11 +242,9 @@
                       aria-label="Toggle navigation">Pages</a>
                     <ul class="sub-menu collapse" id="submenu-1-2">
                       <li class="nav-item"><a href="{{ route('about') }}">About Us</a></li>
-                      <li class="nav-item"><a href="faq.html">Faq</a></li>
-                      <li class="nav-item active"><a href="login.html">Login</a></li>
-                      <li class="nav-item"><a href="register.html">Register</a></li>
-                      <li class="nav-item"><a href="mail-success.html">Mail Success</a></li>
-                      <li class="nav-item"><a href="404.html">404 Error</a></li>
+                      <li class="nav-item"><a href="{{ route('faq') }}">Faq</a></li>
+                      <li class="nav-item active"><a href="{{ route('login') }}">Login</a></li>
+                      <li class="nav-item"><a href="{{ route('register') }}">Register</a></li>
                     </ul>
                   </li>
                   <li class="nav-item">
@@ -254,11 +252,11 @@
                       data-bs-target="#submenu-1-3" aria-controls="navbarSupportedContent" aria-expanded="false"
                       aria-label="Toggle navigation">Shop</a>
                     <ul class="sub-menu collapse" id="submenu-1-3">
-                      <li class="nav-item"><a href="product-grids.html">Shop Grid</a></li>
+                      {{-- <li class="nav-item"><a href="product-grids.html">Shop Grid</a></li>
                       <li class="nav-item"><a href="product-list.html">Shop List</a></li>
-                      <li class="nav-item"><a href="product-details.html">shop Single</a></li>
-                      <li class="nav-item"><a href="cart.html">Cart</a></li>
-                      <li class="nav-item"><a href="checkout.html">Checkout</a></li>
+                      <li class="nav-item"><a href="product-details.html">shop Single</a></li> --}}
+                      <li class="nav-item"><a href="{{ route('carts.index') }}">Cart</a></li>
+                      {{-- <li class="nav-item"><a href="{{ route('checkout.create') }}">Checkout</a></li> --}}
                     </ul>
                   </li>
                   <li class="nav-item">
@@ -266,10 +264,10 @@
                       data-bs-target="#submenu-1-4" aria-controls="navbarSupportedContent" aria-expanded="false"
                       aria-label="Toggle navigation">Blog</a>
                     <ul class="sub-menu collapse" id="submenu-1-4">
-                      <li class="nav-item"><a href="blog-grid-sidebar.html">Blog Grid Sidebar</a>
+                      <li class="nav-item"><a href="{{ route('blogGridSidebar') }}">Blog Grid Sidebar</a>
                       </li>
-                      <li class="nav-item"><a href="blog-single.html">Blog Single</a></li>
-                      <li class="nav-item"><a href="blog-single-sidebar.html">Blog Single
+                      <li class="nav-item"><a href="{{ route('BlogSingle') }}">Blog Single</a></li>
+                      <li class="nav-item"><a href="{{ route('BlogSingleSidebar') }}">Blog Single
                           Sibebar</a></li>
                     </ul>
                   </li>

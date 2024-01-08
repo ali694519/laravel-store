@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('profiles', function (Blueprint $table) {
-            $table->foreignId('user_id')
-            ->constrained('users')->cascadeOnDelete();
+            $table->foreignId('admin_id')
+            ->constrained('admins')->cascadeOnDelete();
             $table->string('first_name');
             $table->string('last_name');
             $table->date('birthday')->nullable();
@@ -25,8 +25,7 @@ return new class extends Migration
             $table->char('country',2);
             $table->char('locale',2)->default('en');
             $table->timestamps();
-
-            $table->primary('user_id');
+            $table->primary('admin_id');
         });
     }
 

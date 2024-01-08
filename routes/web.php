@@ -28,6 +28,10 @@ use App\Http\Controllers\Front\Auth\TwoFactorAuthentcationController;
 Route::get('/', [HomeController::class,'index'])->name('home');
 Route::get('/about', [HomeController::class,'about'])->name('about');
 Route::get('/contact', [HomeController::class,'contact'])->name('contact');
+Route::get('/blogGridSidebar', [HomeController::class,'blogGridSidebar'])->name('blogGridSidebar');
+Route::get('/BlogSingle', [HomeController::class,'BlogSingle'])->name('BlogSingle');
+Route::get('/BlogSingleSidebar', [HomeController::class,'BlogSingleSidebar'])->name('BlogSingleSidebar');
+Route::get('/faq', [HomeController::class,'faq'])->name('faq');
 
 Route::get('/products', [ProductController::class,'index'])
 ->name('products.index');

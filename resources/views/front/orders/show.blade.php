@@ -88,8 +88,4 @@
   // Add other bootstrap parameters as needed, using camel case.
   });
   </script> --}}
-
-
-
-
 </x-front-layout>

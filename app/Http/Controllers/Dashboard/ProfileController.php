@@ -11,7 +11,8 @@ use Symfony\Component\Intl\Languages;
 
 class ProfileController extends Controller
 {
-    public function edit() {
+    public function edit()
+    {
         $user = Auth::user();
         return view('dashboard.profile.edit',[
             'user'=>$user,
@@ -20,8 +21,8 @@ class ProfileController extends Controller
         ]);
     }
 
-     public function update(Request $request) {
-
+     public function update(Request $request)
+     {
        $request->validate([
         'first_name'=>['required','string','max:255'],
         'last_name'=>['required','string','max:255'],
@@ -29,13 +30,10 @@ class ProfileController extends Controller
         'gender'=>['in:male,female'],
         'country'=>['required','string','size:2'],
        ]);
-
-       $user = $request->user();
-
+    //    $user = $request->user();
+       $user = Auth::user();
        $user->profile->fill($request->all())->save();
-
        return redirect()->route('dashboard.profile.edit')
        ->with('success','Profile Updated');
-
     }
 }

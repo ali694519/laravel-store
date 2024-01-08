@@ -1,8 +1,7 @@
 <x-front-layout :title="$product->name">
 
+  <!-- Start Breadcrumbs -->
   <x-slot name="breadcrumb">
-
-    <!-- Start Breadcrumbs -->
     <div class="breadcrumbs">
       <div class="container">
         <div class="row align-items-center">
@@ -21,8 +20,8 @@
         </div>
       </div>
     </div>
-    <!-- End Breadcrumbs -->
   </x-slot>
+  <!-- End Breadcrumbs -->
 
 
   <!-- Start Item Details -->
@@ -353,11 +352,6 @@
     </div>
   </div>
   <!-- End Review Modal -->
-
-
-
-
-
 
 
 

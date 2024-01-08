@@ -12,7 +12,7 @@ class AdminsController extends Controller
 
     public function __construct()
     {
-        $this->authorizeResource(Admin::class, 'admin');    
+        $this->authorizeResource(Admin::class, 'admin');
     }
 
     /**
@@ -81,7 +81,7 @@ class AdminsController extends Controller
     {
         $roles = Role::all();
         $admin_roles = $admin->roles()->pluck('id')->toArray();
-        
+
         return view('dashboard.admins.edit', compact('admin', 'roles', 'admin_roles'));
     }
 
@@ -98,10 +98,10 @@ class AdminsController extends Controller
             'name' => 'required|string|max:255',
             'roles' => 'required|array',
         ]);
-        
+
         $admin->update($request->all());
         $admin->roles()->sync($request->roles);
-        
+
         return redirect()
             ->route('dashboard.admins.index')
             ->with('success', 'Admin updated successfully');

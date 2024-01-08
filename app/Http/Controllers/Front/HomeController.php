@@ -27,4 +27,20 @@ class HomeController extends Controller
     {
         return view('front.contact.contact');
     }
+    public function blogGridSidebar()
+    {
+        return view('front.blogs.blog-grid-sidebar');
+    }
+    public function BlogSingle()
+    {
+        return view('front.blogs.blog-single');
+    }
+     public function BlogSingleSidebar()
+    {
+        return view('front.blogs.blog-single-sidebar');
+    }
+     public function faq()
+    {
+        return view('front.faq.faq');
+    }
 }
