@@ -40,7 +40,7 @@ Route::group([
     Route::post('products/import', [ImportProductsController::class, 'store']);
 
 
-       Route::resources([
+    Route::resources([
         'products' => ProductController::class,
         'categories' => CategoriesController::class,
         'roles' => RolesController::class,

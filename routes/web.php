@@ -24,14 +24,16 @@ use App\Http\Controllers\Front\Auth\TwoFactorAuthentcationController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', [HomeController::class,'index'])->name('home');
-Route::get('/about', [HomeController::class,'about'])->name('about');
-Route::get('/contact', [HomeController::class,'contact'])->name('contact');
-Route::get('/blogGridSidebar', [HomeController::class,'blogGridSidebar'])->name('blogGridSidebar');
-Route::get('/BlogSingle', [HomeController::class,'BlogSingle'])->name('BlogSingle');
-Route::get('/BlogSingleSidebar', [HomeController::class,'BlogSingleSidebar'])->name('BlogSingleSidebar');
-Route::get('/faq', [HomeController::class,'faq'])->name('faq');
+Route::controller(HomeController::class)
+    ->group(function () {
+        Route::get('/',  'index');
+        Route::get('/about',  'about');
+        Route::get('/contact',  'contact');
+        Route::get('/blogGridSidebar',  'blogGridSidebar');
+        Route::get('/BlogSingle','BlogSingle');
+        Route::get('/BlogSingleSidebar','BlogSingleSidebar');
+        Route::get('/faq','faq');
+    });
 
 Route::get('/products', [ProductController::class,'index'])
 ->name('products.index');
@@ -40,9 +42,7 @@ Route::get('/products/{product:slug}', [ProductController::class,'show'])
 Route::get('/categories', [CategoryController::class,'index'])
 ->name('categories.index');
 
-
 Route::resource('/carts', CartController::class);
-
 Route::get('/checkout', [CheckoutController::class,'create'])
 ->name('checkout.create');
 Route::post('/checkout', [CheckoutController::class,'store'])
@@ -66,18 +66,10 @@ Route::get('orders/{order}/pay', [PaymentsController::class, 'create'])
 
 Route::post('orders/{order}/stripe/payment-intent', [PaymentsController::class, 'createStripePaymentIntent'])
     ->name('stripe.paymentIntent.create');
-
-
-
-
-
 Route::get('orders/{order}/pay/stripe/callback', [PaymentsController::class, 'confirm'])
     ->name('stripe.return');
-
-
 Route::get('/orders/{order}', [OrdersController::class, 'show'])
     ->name('orders.show');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
