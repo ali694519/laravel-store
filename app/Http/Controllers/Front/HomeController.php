@@ -9,13 +9,15 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $products = Product::with('category')
         ->active()
         ->latest()
         ->limit(8)
         ->get();
         $categories = Category::get();
+        $categories = Category::where('parent_id', null)->with('subcategories')->get();
         return view('front.home',compact('products','categories'));
     }
 

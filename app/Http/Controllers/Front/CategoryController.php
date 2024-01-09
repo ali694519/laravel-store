@@ -8,12 +8,13 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-   public function index() {
+    public function index()
+    {
 
     }
 
-
-    public function show(Category $product) {
+    public function show(Category $product)
+    {
         return view('front.products.show',compact('product'));
-     }
+    }
 }

@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Validation\Rule;
 
 class Category extends Model
@@ -17,12 +16,16 @@ class Category extends Model
         'name','parent_id','image','status','slug','description'
     ];
 
-
     public function parent() {
         return $this->belongsTo(Category::class,'parent_id','id')
         ->withDefault([
             'name'=>'-'
         ]);
+    }
+
+    public function subcategories()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
     }
 
       public function children() {

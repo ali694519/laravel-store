@@ -3,8 +3,9 @@
 namespace App\View\Components;
 
 use Closure;
-use Illuminate\Contracts\View\View;
+use App\Models\Category;
 use Illuminate\View\Component;
+use Illuminate\Contracts\View\View;
 
 class frontLayout extends Component
 {
@@ -23,6 +24,7 @@ class frontLayout extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('layouts.front');
+        $categories = Category::where('parent_id', null)->with('subcategories')->get();
+        return view('layouts.front',compact('categories'));
     }
 }

@@ -26,13 +26,13 @@ use App\Http\Controllers\Front\Auth\TwoFactorAuthentcationController;
 */
 Route::controller(HomeController::class)
     ->group(function () {
-        Route::get('/',  'index');
-        Route::get('/about',  'about');
-        Route::get('/contact',  'contact');
-        Route::get('/blogGridSidebar',  'blogGridSidebar');
-        Route::get('/BlogSingle','BlogSingle');
-        Route::get('/BlogSingleSidebar','BlogSingleSidebar');
-        Route::get('/faq','faq');
+        Route::get('/',  'index')->name('home');
+        Route::get('/about',  'about')->name('about');
+        Route::get('/contact',  'contact')->name('contact');
+        Route::get('/blogGridSidebar',  'blogGridSidebar')->name('blogGridSidebar');
+        Route::get('/BlogSingle','BlogSingle')->name('BlogSingle');
+        Route::get('/BlogSingleSidebar','BlogSingleSidebar')->name('BlogSingleSidebar');
+        Route::get('/faq','faq')->name('faq');
     });
 
 Route::get('/products', [ProductController::class,'index'])
