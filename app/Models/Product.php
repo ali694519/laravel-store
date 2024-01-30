@@ -75,13 +75,11 @@ class Product extends Model
 
     //Accessors
     public function getImageUrlAttribute() {
-        if(!$this->image) {
-            return '';
-        }
+        if(!$this->image) {return '';}
         if(Str::startsWith($this->image, ['http://','https://'])){
             return $this->image;
         }
-        return asset('storage/',$this->image);
+        return asset('storage/'.$this->image);
     }
 
     public function getSalePercentAttribute() {

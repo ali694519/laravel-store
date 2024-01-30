@@ -16,9 +16,9 @@ class HomeController extends Controller
         ->latest()
         ->limit(8)
         ->get();
-        $categories = Category::get();
         $categories = Category::where('parent_id', null)->with('subcategories')->get();
-        return view('front.home',compact('products','categories'));
+        $latestProduct = Product::latest()->first();
+        return view('front.home',compact('products','categories','latestProduct'));
     }
 
     public function about()

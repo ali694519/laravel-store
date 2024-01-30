@@ -52,7 +52,6 @@ class ProductController extends Controller
         ]);
         $data = $request->except('image','tags');
 
-
         $data['image'] = $this->UploadImage($request);
 
         $product = Product::create($data);
